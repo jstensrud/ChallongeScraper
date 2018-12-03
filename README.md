@@ -1,6 +1,7 @@
 # Challonge Scraper
 
 Created by Jack Stensrud
+
 Version 0.2
 
 Allows Tournament organizers to view their Challonge-hosted tournaments and display it in a more readable format.
