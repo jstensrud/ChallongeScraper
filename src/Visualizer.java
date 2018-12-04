@@ -44,15 +44,33 @@ public class Visualizer extends JFrame{
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
 		
+		JLabel formatTitle = new JLabel("Tournament URLs are formatted as: [Subdomain (if applicable)].challonge.com/[Tournament ID])");
+		formatTitle.setFont(inputFont);
+		formatTitle.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(formatTitle);
+		
+		
 		JLabel tournamentIDTitle = new JLabel("Tournament ID:");
 		tournamentIDTitle.setFont(subtitleFont);
 		tournamentIDTitle.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(tournamentIDTitle);
+
 		
 		JTextField tournamentID = new JTextField();
 		tournamentID.setFont(inputFont);
 		tournamentID.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(tournamentID);
+
+		JLabel subDomainTitle = new JLabel("Organization Subdomain (if applicable):");
+		subDomainTitle.setFont(subtitleFont);
+		subDomainTitle.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(subDomainTitle);
+
+		JTextField subDomain = new JTextField();
+		subDomain.setFont(inputFont);
+		subDomain.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(subDomain);
+
 		
 		JButton scrapeButton = new JButton("Scrape and save to Clipboard");
 		
@@ -75,10 +93,18 @@ public class Visualizer extends JFrame{
 					//Checks if the tournament ID text box has anything in it
 					if(!tournamentID.getText().isEmpty()){
 						//If it does, create a ResultsVisualizer by scraping the internet for a tournament's match list.
-						ResultsVisualizer r = new ResultsVisualizer(a.scrape(tournamentID.getText()));
-						r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						r.setVisible(true);
-						return;
+						if(subDomain.getText().isEmpty()){
+							//Case for no subdomain
+							ResultsVisualizer r = new ResultsVisualizer(a.scrape(tournamentID.getText()));
+							r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							r.setVisible(true);
+							return;
+						} else{
+							ResultsVisualizer r = new ResultsVisualizer(a.scrape(subDomain.getText() + "-" + tournamentID.getText()));
+							r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							r.setVisible(true);
+							return;							
+						}
 					}else{
 						//If it doesn't, explain the situation with a pop-up.
 						PopUpVisualizer e = new PopUpVisualizer("Error", 

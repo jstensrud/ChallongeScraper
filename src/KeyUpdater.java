@@ -42,6 +42,12 @@ public class KeyUpdater extends JFrame{
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
 		
+		JLabel subtitle = new JLabel("Your API Key can be found at https://challonge.com/settings/developer");
+		subtitle.setFont(f);
+		subtitle.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(subtitle);
+		
+		
 		JTextField apiKey = new JTextField();
 		apiKey.setFont(f);
 		apiKey.setAlignmentX(CENTER_ALIGNMENT);
