@@ -2,13 +2,13 @@
 
 Created by Jack Stensrud
 
-Version 0.2
+Version 0.2.1
 
 Allows Tournament organizers to view their Challonge-hosted tournaments and display it in a more readable format.
 
 
 # Planned Features
-- [ ] Support for organizations
+- [x] Support for organizations
 
 - [ ] Visual overhaul
 
@@ -17,6 +17,8 @@ Allows Tournament organizers to view their Challonge-hosted tournaments and disp
 - [ ] Better visualization of tournament results, instead of just listing each match one by one
 
 - [ ] Google Sheets support
+
+- [ ] Integration with smash.gg as well as Challonge
 
 - [ ] Save tournament results in client
 
