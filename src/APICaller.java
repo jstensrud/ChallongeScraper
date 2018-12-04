@@ -83,7 +83,7 @@ public class APICaller {
 				
 				//Explain the situation in a pop-up
 				PopUpVisualizer ev = new PopUpVisualizer("Error", 
-											"You have either entered an invalid Tournament ID. Please enter a valid Tournament ID.");
+											"You have either entered an invalid Tournament ID (" + tournamentID + "). Please enter a valid Tournament ID.");
 				ev.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				ev.setVisible(true);
 				
