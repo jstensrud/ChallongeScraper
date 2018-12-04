@@ -8,6 +8,8 @@ Allows Tournament organizers to view their Challonge-hosted tournaments and disp
 
 
 # Planned Features
+- [ ] Support for organizations
+
 - [ ] Visual overhaul
 
 - [ ] Support for disqualifications (Currently reads them as a loss for a player)
