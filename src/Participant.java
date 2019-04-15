@@ -17,8 +17,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant {
 	
-	private Integer id;
-	private String name;
+	public Integer id;
+	public Integer tournamentID;
+	public String tagWithCrew;
+	public String tag;
+	public String crew;
+	public Integer seed;
+	public Integer placing;
 	
 	/**
 	 * Default constructor, including some instructions for the JSON deserializer
@@ -26,24 +31,27 @@ public class Participant {
 	 * @param id: Participant's ID
 	 * @param name: Participant's name
 	 */
-	public Participant(@JsonProperty("id")Integer id, @JsonProperty("name")String name){
+	public Participant(@JsonProperty("id")Integer id, @JsonProperty("tournament_id")Integer tournamentID, 
+						@JsonProperty("name")String name, @JsonProperty("seed")Integer seed, 
+						 @JsonProperty("final_rank")Integer placing){
 		this.id = id;
-		this.name = name;
+		this.tournamentID = tournamentID;
+		this.tagWithCrew = name;
+		this.seed = seed;
+		this.placing = placing;
+		setTagAndCrew();
 	}
 	
-	/**
-	 * Returns the player's ID.
-	 * @return the plasyer's ID.
-	 */
-	public Integer getID(){
-		return this.id;
-	}
-
-	/**
-	 * Returns the player's name.
-	 * @return the plasyer's name.
-	 */
-	public String getName(){
-		return this.name;
+	public void setTagAndCrew(){
+		for(int i = 0; i < tagWithCrew.length(); i++){
+			if(tagWithCrew.charAt(i) == '|'){
+				crew = tagWithCrew.substring(0, i - 1);
+				tag = tagWithCrew.substring(i + 2);
+				return;
+			}
+		}
+		crew = "";
+		tag = tagWithCrew;
+		return;
 	}
 }
