@@ -1,10 +1,6 @@
 import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -26,40 +22,81 @@ public class ResultsVisualizer extends JFrame{
 	 * 
 	 * @param matchList: The tournament's list of matches
 	 */
-	public ResultsVisualizer(ArrayList<String> matchList){
+	public ResultsVisualizer(OutputWrapper output){
 		//Set up the window and the content that will appear on it
 		setTitle("Tournament Results");
 		JPanel content = new JPanel();
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-		Font titleFont = new Font("Comic Sans MS", Font.BOLD, 30);
-		Font inputFont = new Font("Comic Sans MS", Font.BOLD, 20);
+		Font titleFont = new Font("Comic Sans MS", Font.BOLD, 20);
+		Font inputFont = new Font("Comic Sans MS", Font.BOLD, 12);
 	
 		
-		JLabel title = new JLabel("Tournament Results successfully saved to Clipboard");
+		JLabel title = new JLabel("Tournament Results:");
 		title.setFont(titleFont);
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
 		
-		//Holds the total results that will be eventually saved to the user's clipboard
-		String fullResults = "";
+		JLabel tournamentIDLabel = new JLabel("Tournament ID: " + output.t.id);
+		tournamentIDLabel.setFont(inputFont);
+		tournamentIDLabel.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tournamentIDLabel);
+		JLabel tournamentNameLabel = new JLabel("Tournament Name: " + output.t.name);
+		tournamentNameLabel.setFont(inputFont);
+		tournamentNameLabel.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tournamentNameLabel);
+		JLabel tournamentGameLabel = new JLabel("Tournament Game: " + output.t.game);
+		tournamentGameLabel.setFont(inputFont);
+		tournamentGameLabel.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tournamentGameLabel);
+		JLabel tournamentOrgLabel = new JLabel("Tournament Organization: " + output.t.organization);
+		tournamentOrgLabel.setFont(inputFont);
+		tournamentOrgLabel.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tournamentOrgLabel);
+		JLabel tournamentDateLabel = new JLabel("Tournament Date: " + output.t.date);
+		tournamentDateLabel.setFont(inputFont);
+		tournamentDateLabel.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tournamentDateLabel);
 		
-		//For each match in the list of the match:
-		for(int i = 0; i < matchList.size(); i++){
-			//Set up a label for each match
-			JLabel match = new JLabel(matchList.get(i));
-			match.setFont(inputFont);
-			match.setAlignmentX(CENTER_ALIGNMENT);
-			content.add(match);
-			//Add the match data and a line break to the full results string
-			fullResults = fullResults + matchList.get(i) + System.getProperty("line.separator");
+		for(Participant p : output.participants.values()){
+			//Set up a label for each participant
+			JLabel participantTag = new JLabel("Tag: " + p.tag);
+			participantTag.setFont(inputFont);
+			participantTag.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(participantTag);			
+			JLabel participantCrew = new JLabel("Crew: " + p.crew);
+			participantCrew.setFont(inputFont);
+			participantCrew.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(participantCrew);			
+			JLabel participantSeed = new JLabel("Seed: " + p.seed);
+			participantSeed.setFont(inputFont);
+			participantSeed.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(participantSeed);
+			JLabel participantPlacing = new JLabel("Placing: " + p.placing);
+			participantPlacing.setFont(inputFont);
+			participantPlacing.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(participantPlacing);
 		}
 		
-		//Copy the total results string to the user's clipboard
-		StringSelection selection = new StringSelection(fullResults);
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		clipboard.setContents(selection, selection);
-		
+		for(int i = 0; i < output.matches.size(); i++){
+			Match m = output.matches.get(i);
+			JLabel matchID = new JLabel("Match ID: " + m.id);
+			matchID.setFont(inputFont);
+			matchID.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(matchID);
+			JLabel matchWinnerTag = new JLabel("Match ID: " + m.winnerTag);
+			matchWinnerTag.setFont(inputFont);
+			matchWinnerTag.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(matchWinnerTag);
+			JLabel matchLoserTag = new JLabel("Match ID: " + m.loserTag);
+			matchLoserTag.setFont(inputFont);
+			matchLoserTag.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(matchLoserTag);
+			JLabel matchScore = new JLabel("Score: " + m.score);
+			matchScore.setFont(inputFont);
+			matchScore.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(matchScore);
+		}
 		
 		JButton closeButton = new JButton("OK");
 		

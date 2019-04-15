@@ -10,50 +10,24 @@ import javax.swing.JFrame;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-/**
- * APICaller:
- * Calls the Challonge API to get tournament, participant, and match data.
- * Variables:
- * 				String apiKey: The user's API Key to Challonge.
- * 				HashMap<Integer, String> participantList: The list of participants in the tournament.
- * 				ArrayList<String> matchList: The list of each match taken place in the tournament, in the form of "X defeats Y"
- *
- */
+
 public class APICaller {
 
 	private String apiKey;
-	private HashMap<Integer, String> participantList;
-	private ArrayList<String> matchList;
+	private HashMap<Integer, Participant> participantList;
+	private ArrayList<Match> matchList;
 	
-	/**
-	 * Default constructor of APICaller
-	 * 
-	 * @param apiKey: The Challonge API key, provided by the user's input in the Visualizer class.
-	 */
 	public APICaller(String apiKey){
 		this.apiKey = apiKey;
-		this.participantList = new HashMap<Integer, String>();
-		this.matchList = new ArrayList<String>();
+		this.participantList = new HashMap<Integer, Participant>();
+		this.matchList = new ArrayList<Match>();
 	}
 	
-	/**
-	 * Scrapes the Challonge API for results for a given tournament.
-	 * 
-	 * @param tournamentID: The ID for the tournament, provided by the user's input in the Visualizer class.
-	 * @return An ArrayList of each match in the tournament.
-	 */
-	public ArrayList<String> scrape(String tournamentID) {
-		
-		//Get the tournament data
-		Tournament t = getTournament(tournamentID);
-		
-		//From the tournament data,
-		//Update the participant list and match list.
-		getParticipantList(t);
-		getMatchList(t);
-		
-		//Return the new Match List.
-		return this.matchList;
+	public OutputWrapper scrape(String tournamentID) {
+		Tournament t = retrieveTournament(tournamentID);
+		updateParticipantList(t);
+		updateMatchList(t);
+		return new OutputWrapper(t, participantList, matchList);
 	}
 	
 	/**
@@ -63,7 +37,7 @@ public class APICaller {
 	 * @param tournamentID : The ID for the tournament, provided by the scrape method.
 	 * @return the data for the Tournament in question.
 	 */
-	public Tournament getTournament(String tournamentID){
+	public Tournament retrieveTournament(String tournamentID){
 		try {
 			//Set up the URL to call with the Tournament's ID.
 			URL url = new URL("https://api.challonge.com/v1/tournaments/" + tournamentID + ".json?api_key=" + apiKey);
@@ -104,14 +78,7 @@ public class APICaller {
 		return null;
 	}
 	
-	
-	/**
-	 * Updates the participant list.
-	 * 
-	 * 
-	 * @param t: The tournament in question.
-	 */
-	public void getParticipantList(Tournament t){
+	public void updateParticipantList(Tournament t){
 		//Clear the participant list from a potential previous search.
 		participantList.clear();
 		try {
@@ -129,8 +96,9 @@ public class APICaller {
 				ParticipantWrapper[] participants = o.readValue(con.getInputStream(), ParticipantWrapper[].class);
 				//For each Participant:
 				for(int i = 0; i < participants.length; i++){
+					Participant p = participants[i].getParticipant();
 					//Add the participant data to the participant list, with ID and Name as the key and value for the HashMap.
-					participantList.put(participants[i].getParticipant().getID(), participants[i].getParticipant().getName());
+					participantList.put(p.id, p);
 				}
 			} catch (IOException e) {
 				//This exception is caught by the getTournament script.
@@ -142,12 +110,7 @@ public class APICaller {
 		}
 	}
 	
-	/**
-	 * Updates the MatchList to include the results of each match, in the form of "X Defeats Y".
-	 * 
-	 * @param t: The tournament in question.
-	 */
-	public void getMatchList(Tournament t){
+	public void updateMatchList(Tournament t){
 		//Clear the match list from a potential previous search.
 		matchList.clear();
 		try {
@@ -164,12 +127,11 @@ public class APICaller {
 				*/
 				MatchWrapper[] matches = o.readValue(con.getInputStream(), MatchWrapper[].class);
 				for(int i = 0; i < matches.length; i++){
-					//Builds the String that shows the total result of the match and adds it to the match list.
-					Integer winnerID = matches[i].getMatch().getWinnerID();
-					Integer loserID = matches[i].getMatch().getLoserID();
-					String winnerName = getParticipantNameFromID(winnerID);
-					String loserName = getParticipantNameFromID(loserID);
-					matchList.add(winnerName + " defeats " + loserName);
+					Match m = matches[i].getMatch();
+					m.winnerTag = getParticipantTagFromID(m.winner_id);
+					m.loserTag = getParticipantTagFromID(m.loser_id);
+					matchList.add(m);
+					
 				}
 			} catch (IOException e) {
 				//This exception is caught by the getTournament method.
@@ -181,13 +143,7 @@ public class APICaller {
 		}
 	}
 	
-	/**
-	 * Searches the participant list for a player by their ID and returns their name.
-	 * 
-	 * @param id: The player's ID.
-	 * @return: The player's Name
-	 */
-	public String getParticipantNameFromID(Integer id){
-		return participantList.get(id);
+	public String getParticipantTagFromID(Integer id){
+		return participantList.get(id).tag;
 	}
 }

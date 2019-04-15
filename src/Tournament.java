@@ -3,62 +3,47 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-
-/**
- * Tournament
- * 
- * Stores the data for a tournament.
- * 
- * Integer id: The tournament's ID.
- * String name: The tournament's name (currently unused, but it seems nice to have for the future).
- * 
- */
 @JsonRootName(value = "tournament")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Tournament {
-	private Integer id;
-	private String name;
+	public Integer id;
+	public String name;
+	public String organization;
+	public String game;
+	public String date;
 	
 	/**
 	 * Default constructor, with some instructions for the JSON Deserializer.
-	 * @param id: The tournament's ID
-	 * @param name: The tournament's name
 	 */
 	@JsonCreator
-	public Tournament(@JsonProperty("id")Integer id, @JsonProperty("name")String name){
+	public Tournament(@JsonProperty("id")Integer id, @JsonProperty("name")String name, 
+						@JsonProperty("subdomain")String subdomain, @JsonProperty("created_at")String date,
+						  @JsonProperty("game_name")String game){
 		this.id = id;
 		this.name = name;
+		this.organization = subdomain;
+		this.date = date.substring(0, 10);
+		this.game = game;
 	}
 	
-	/**
-	 * Returns the tournament's ID.
-	 * @return the tournament's ID.
-	 */
+
 	public Integer getID(){
 		return this.id;
 	}
 
-	/**
-	 * Returns the tournament's name.
-	 * @return the tournament's name.
-	 */
 	public String getName(){
 		return this.name;
 	}
 	
-	/**
-	 * Sets the tournament's ID.
-	 * @param id: the tournament's new ID.
-	 */
-	public void setID(Integer id){
-		this.id = id;
+	public String getOrganization(){
+		return this.organization;
 	}
-
-	/**
-	 * Sets the tournament's name.
-	 * @param id: the tournament's new name.
-	 */
-	public void setName(String name){
-		this.name = name;
+	
+	public String getDate(){
+		return this.date;
+	}
+	
+	public String getGame(){
+		return this.game;
 	}
 }
