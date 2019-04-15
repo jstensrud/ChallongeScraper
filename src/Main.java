@@ -11,7 +11,7 @@ import javax.swing.JFrame;
                                       __/ |                              | |              
                                      |___/                               |_|             
  *
- * Version 0.2.1 Created by Jack Stensrud (github.com/jstensrud).
+ * Version 0.3.1 Created by Jack Stensrud (github.com/jstensrud).
  * 
  * Allows Tournament Organizers to enter the Tournament ID of one of their Challonge-hosted tournaments and 
  * display it in a more readable format.
