@@ -2,7 +2,7 @@
 
 Created by Jack Stensrud
 
-Version 0.2.1
+Version 0.3.1
 
 Allows Tournament organizers to view their Challonge-hosted tournaments and display it in a more readable format.
 
