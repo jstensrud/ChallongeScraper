@@ -11,11 +11,7 @@ import javax.swing.JFrame;
                                       __/ |                              | |              
                                      |___/                               |_|             
  *
- * Version 0.3.1 Created by Jack Stensrud (github.com/jstensrud).
- * 
- * Allows Tournament Organizers to enter the Tournament ID of one of their Challonge-hosted tournaments and 
- * display it in a more readable format.
- * 
+ * Version 0.3.1
  * 
  * Uses Jackson for JSON Deserialization. Jackson is created by FasterXML (github.com/FasterXML).
  * ASCII Art Title created with a Text to ASCII art generator from partojk.com

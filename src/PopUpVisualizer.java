@@ -29,7 +29,7 @@ public class PopUpVisualizer extends JFrame{
 		JPanel content = new JPanel();
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-		Font f = new Font("Comic Sans MS", Font.BOLD, 20);
+		Font f = new Font("Trebuchet MS", Font.BOLD, 20);
 		
 		JLabel errorDescription = new JLabel(messageBody);
 		errorDescription.setFont(f);
