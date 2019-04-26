@@ -1,4 +1,7 @@
 import javax.swing.JFrame;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * 
@@ -20,6 +23,14 @@ import javax.swing.JFrame;
 public class Main {
 
 	public static void main(String[] args) {
+		Connection con;
+		
+		try{
+			con = DriverManager.getConnection("jdbc:sqlserver://golem.csse.rose-hulman.edu;_SmashDB");
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
 		Visualizer v = new Visualizer();
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.setVisible(true);
