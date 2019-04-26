@@ -24,12 +24,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Connection con;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//
 		try{
 			con = DriverManager.getConnection("jdbc:sqlserver://golem.csse.rose-hulman.edu;_SmashDB");
 		}
