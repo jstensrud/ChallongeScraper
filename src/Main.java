@@ -25,15 +25,16 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("scraper", "secrectKey");
-		
+		boolean connected = connector.connect("scraper", "secretKey");
+
 		Connection con = null;
 		if (!connected)
 			JOptionPane.showMessageDialog(null, "Failed to connect to database. All actions will be local only.");
 		else
 			con = connector.getConnection();
-		
+
 		Visualizer v = new Visualizer(con);
+
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.setVisible(true);
 	}
