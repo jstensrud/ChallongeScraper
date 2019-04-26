@@ -1,6 +1,7 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,13 +18,17 @@ import javax.swing.JScrollPane;
  * 
  */
 public class ResultsVisualizer extends JFrame{
+	private Connection con;
 	
 	/**
 	 * Default constructor
+	 * @param con 
 	 * 
 	 * @param matchList: The tournament's list of matches
 	 */
-	public ResultsVisualizer(OutputWrapper output){
+	public ResultsVisualizer(OutputWrapper output, Connection con){
+		this.con = con;
+		
 		//Set up the window and the content that will appear on it
 		setTitle("Tournament Results");
 		JPanel content = new JPanel();
@@ -60,6 +65,8 @@ public class ResultsVisualizer extends JFrame{
 		tournamentDateLabel.setAlignmentX(LEFT_ALIGNMENT);
 		content.add(tournamentDateLabel);
 		
+		this.insertTournament(output.t.id, output.t.game, output.t.organization, output.t.date, output.t.name);
+		
 		for(Participant p : output.participants.values()){
 			//Set up a label for each participant
 			JLabel participantTag = new JLabel("Tag: " + p.tag);
@@ -78,6 +85,8 @@ public class ResultsVisualizer extends JFrame{
 			participantPlacing.setFont(inputFont);
 			participantPlacing.setAlignmentX(LEFT_ALIGNMENT);
 			content.add(participantPlacing);
+			
+			this.insertParticipantPlacing(p.tag, p.crew, output.t.id, p.seed, p.placing);
 		}
 		
 		for(int i = 0; i < output.matches.size(); i++){
@@ -98,6 +107,8 @@ public class ResultsVisualizer extends JFrame{
 			matchScore.setFont(inputFont);
 			matchScore.setAlignmentX(LEFT_ALIGNMENT);
 			content.add(matchScore);
+			
+			this.insertMatch(m.id, output.t.id, m.winnerTag, m.loserTag, m.score);
 		}
 		
 		JButton closeButton = new JButton("OK");
@@ -115,6 +126,17 @@ public class ResultsVisualizer extends JFrame{
 		content.add(closeButton);
 		add(jsp);
 		pack();
+	}
 
+	private void insertTournament(Integer id, String game, String organization, String date, String name) {
+		// TODO  use con to CALL [create_tournament]
+	}
+
+	private void insertParticipantPlacing(String tag, String crew, Integer id, Integer seed, Integer placing) {
+		// TODO use con to CALL [insert_tournament_placing]	
+	}
+
+	private void insertMatch(Integer id, Integer id2, String winnerTag, String loserTag, String score) {
+		// TODO use con to CALL [insert_match_details]
 	}
 }

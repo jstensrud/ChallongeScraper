@@ -1,4 +1,6 @@
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,22 +23,17 @@ import java.sql.SQLException;
  * 
  */
 public class Main {
-
 	public static void main(String[] args) {
-		Connection con;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try{
-			con = DriverManager.getConnection("jdbc:sqlserver://golem.csse.rose-hulman.edu;_SmashDB");
-		}
-		catch (SQLException e){
-			e.printStackTrace();
-		}
-		Visualizer v = new Visualizer();
+		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
+		boolean connected = connector.connect("scraper", "secrectKey");
+		
+		Connection con = null;
+		if (!connected)
+			JOptionPane.showMessageDialog(null, "Failed to connect to database. All actions will be local only.");
+		else
+			con = connector.getConnection();
+		
+		Visualizer v = new Visualizer(con);
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.setVisible(true);
 	}

@@ -1,6 +1,7 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.util.prefs.Preferences;
 
 import javax.swing.BoxLayout;
@@ -17,11 +18,14 @@ import javax.swing.JTextField;
  * and scrape Challonge for a Tournament ID. 
  */
 public class Visualizer extends JFrame{
+	private Connection con;
 	
 	/**
 	 * Default constructor
+	 * @param con 
 	 */
-	public Visualizer(){
+	public Visualizer(Connection con){
+		this.con = con;
 		
 		//Set up the user preferences that store the API Key
 		Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
@@ -95,12 +99,12 @@ public class Visualizer extends JFrame{
 						//If it does, create a ResultsVisualizer by scraping the internet for a tournament's match list.
 						if(subDomain.getText().isEmpty()){
 							//Case for no subdomain
-							ResultsVisualizer r = new ResultsVisualizer(a.scrape(tournamentID.getText()));
+							ResultsVisualizer r = new ResultsVisualizer(a.scrape(tournamentID.getText()), con);
 							r.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 							r.setVisible(true);
 							return;
 						} else{
-							ResultsVisualizer r = new ResultsVisualizer(a.scrape(subDomain.getText() + "-" + tournamentID.getText()));
+							ResultsVisualizer r = new ResultsVisualizer(a.scrape(subDomain.getText() + "-" + tournamentID.getText()), con);
 							r.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 							r.setVisible(true);
 							return;							
