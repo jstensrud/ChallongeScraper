@@ -16,7 +16,7 @@ public class Match {
 
 	public Match(@JsonProperty("id")Integer id, @JsonProperty("tournament_id")Integer tournamentID, 
 					@JsonProperty("winner_id")Integer w_id, @JsonProperty("loser_id")Integer l_id, 
-						@JsonProperty("score")String score){
+						@JsonProperty("scores_csv")String score){
 		this.id = id;
 		this.tournamentID = tournamentID;
 		this.winner_id = w_id;

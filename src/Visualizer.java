@@ -33,10 +33,10 @@ public class Visualizer extends JFrame{
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
 		//gotta find a better font than comic sans at some point
-		Font titleFont = new Font("Comic Sans MS", Font.BOLD, 40);
-		Font subtitleFont = new Font("Comic Sans MS", Font.BOLD, 30);
-		Font inputFont = new Font("Comic Sans MS", Font.BOLD, 20);
-		Font creditsFont = new Font("Comic Sans MS", Font.BOLD, 10);
+		Font titleFont = new Font("Trebuchet MS", Font.BOLD, 40);
+		Font subtitleFont = new Font("Trebuchet MS", Font.BOLD, 30);
+		Font inputFont = new Font("Trebuchet MS", Font.BOLD, 20);
+		Font creditsFont = new Font("Trebuchet MS", Font.BOLD, 10);
 		
 		
 		JLabel title = new JLabel("Challonge Scraper");
@@ -96,12 +96,12 @@ public class Visualizer extends JFrame{
 						if(subDomain.getText().isEmpty()){
 							//Case for no subdomain
 							ResultsVisualizer r = new ResultsVisualizer(a.scrape(tournamentID.getText()));
-							r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							r.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 							r.setVisible(true);
 							return;
 						} else{
 							ResultsVisualizer r = new ResultsVisualizer(a.scrape(subDomain.getText() + "-" + tournamentID.getText()));
-							r.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+							r.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 							r.setVisible(true);
 							return;							
 						}
