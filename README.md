@@ -1,6 +1,6 @@
 # Challonge Scraper
 
-Created by Jack Stensrud
+Created by Jack Stensrud, Jaxon Hoffman, and Sarthak Suri
 
 Version 0.3.1
 
@@ -14,9 +14,7 @@ Allows Tournament organizers to view their Challonge-hosted tournaments and disp
 
 - [ ] Support for disqualifications (Currently reads them as a loss for a player with no indication of a DQ)
 
-- [ ] Better visualization of tournament results, instead of just listing each match one by one
-
-- [ ] Google Sheets support
+- [x] Better visualization of tournament results, instead of just listing each match one by one
 
 - [ ] Integration with smash.gg as well as Challonge for all features
 
