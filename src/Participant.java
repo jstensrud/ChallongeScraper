@@ -44,7 +44,7 @@ public class Participant {
 	
 	public void setTagAndCrew(){
 		for(int i = 0; i < tagWithCrew.length(); i++){
-			if(tagWithCrew.charAt(i) == '|'){
+			if(tagWithCrew.codePointAt(i) == "|".codePointAt(0)){
 				crew = tagWithCrew.substring(0, i - 1);
 				tag = tagWithCrew.substring(i + 2);
 				return;

@@ -18,7 +18,7 @@ CREATE PROCEDURE [create_tournament]
 	(@TournamentID_1 [int],
 	@Game_2 [varchar],
 	@Organization_3 [varchar],
-	@Date_4 [date],
+	@Date_4 [varchar],
 	@Name_5 [varchar]
 	)
 AS

@@ -1,12 +1,16 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -129,14 +133,67 @@ public class ResultsVisualizer extends JFrame{
 	}
 
 	private void insertTournament(Integer id, String game, String organization, String date, String name) {
-		// TODO  use con to CALL [create_tournament]
+		CallableStatement cs = null;
+		try{
+			System.out.println(name);
+			cs = con.prepareCall("{ ? = call create_tournament(?, ?, ?, ?, ?)}");
+			cs.setInt(2, id);
+			cs.setString(3, game);
+			cs.setString(4, organization);
+			cs.setString(5, date);
+			cs.setString(6, name);
+			cs.registerOutParameter(1, Types.INTEGER);
+			boolean rs = cs.execute();
+			int returnValue = cs.getInt(1);
+			if(returnValue == 1){
+				JOptionPane.showMessageDialog(null, "Tournament has already been added into the database.");
+			} else if(returnValue == 2){
+				JOptionPane.showMessageDialog(null, "Game is not supported in the database.");				
+			}
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
 	}
 
 	private void insertParticipantPlacing(String tag, String crew, Integer id, Integer seed, Integer placing) {
-		// TODO use con to CALL [insert_tournament_placing]	
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{ ? = call insert_tournament_placing(?, ?, ?, ?, ?)}");
+			cs.setString(2, tag);
+			cs.setString(3, crew);
+			cs.setInt(4, id);
+			cs.setInt(5, seed);
+			cs.setInt(6, placing);
+			cs.registerOutParameter(1, Types.INTEGER);
+			boolean rs = cs.execute();
+			int returnValue = cs.getInt(1);
+			if(returnValue == 1){
+				JOptionPane.showMessageDialog(null, "Tournament ID does not exist in the database.");
+			}
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
 	}
 
 	private void insertMatch(Integer id, Integer id2, String winnerTag, String loserTag, String score) {
-		// TODO use con to CALL [insert_match_details]
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{ ? = call insert_match_details(?, ?, ?, ?, ?)}");
+			cs.setInt(2, id);
+			cs.setInt(3, id2);
+			cs.setString(4, winnerTag);
+			cs.setString(5, loserTag);
+			cs.setString(6, score);
+			cs.registerOutParameter(1, Types.INTEGER);
+			boolean rs = cs.execute();
+			int returnValue = cs.getInt(1);
+			if(returnValue == 1){
+				JOptionPane.showMessageDialog(null, "Match has already been added into the database.");
+			} else if(returnValue == 2){
+				JOptionPane.showMessageDialog(null, "Tournament does not exist in the database.");				
+			}
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
 	}
 }

@@ -20,6 +20,7 @@ public class DatabaseConnectionService {
 			this.connection = DriverManager.getConnection(SampleURL.replace("${dbServer}", serverName)
 					.replace("${dbName}", databaseName).replace("${user}", user).replace("${pass}", pass));
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return false;
 		}
 		return true;

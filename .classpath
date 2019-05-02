@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="src/jackson-core-2.9.7.jar"/>
 	<classpathentry kind="lib" path="src/jackson-databind-2.9.7.jar"/>
 	<classpathentry kind="lib" path="src/jackson-annotations-2.9.7.jar"/>
-	<classpathentry kind="lib" path="/SodaBaseApp/mssql-jdbc-6.2.2.jre8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/stensrje/Desktop/school stuff/CSSE333/CSSE333-ConnectivityLab/mssql-jdbc-6.2.2.jre8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

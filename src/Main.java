@@ -25,7 +25,7 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("scraper", "secretKey");
+		boolean connected = connector.connect("USERNAME", "PASSWORD");
 
 		Connection con = null;
 		if (!connected)

@@ -140,7 +140,7 @@ public class Visualizer extends JFrame{
 		updateKeyButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(updateKeyButton);
 		
-		JLabel credits = new JLabel("Challonge Scraper v0.2: Created by Jack Stensrud");
+		JLabel credits = new JLabel("Challonge Scraper v0.2: Created by Jaxon Hoffman, Jack Stensrud, and Sarthak Suri");
 		credits.setFont(creditsFont);
 		credits.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(credits);

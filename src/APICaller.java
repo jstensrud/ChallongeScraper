@@ -99,6 +99,7 @@ public class APICaller {
 					Participant p = participants[i].getParticipant();
 					//Add the participant data to the participant list, with ID and Name as the key and value for the HashMap.
 					participantList.put(p.id, p);
+					System.out.println(p.tagWithCrew);
 				}
 			} catch (IOException e) {
 				//This exception is caught by the getTournament script.
