@@ -1,0 +1,17 @@
+USE [SmashTournyDB]
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE TABLE Ranking (
+	[Period] VARCHAR(20) NOT NULL,
+	[Game] VARCHAR(50) NOT NULL FOREIGN KEY REFERENCES [Game]([Name]),
+	[Group] VARCHAR(50) NOT NULL,
+	PRIMARY KEY ([Period], [Game], [Group])
+);

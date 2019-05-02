@@ -23,8 +23,12 @@ CREATE PROCEDURE [insert_tournament_placing]
 	)
 AS
 -- Validate parameters (add null checks)
+IF @PlayerTag_1 IS NULL OR @TournamentID_3 IS NULL OR @Seed_4 IS NULL OR @Placing_5 IS NULL
+	RETURN -1
 IF NOT EXISTS(SELECT * FROM [Tournament] WHERE [TournamentID] = @TournamentID_3)
 	RETURN 1
+IF EXISTS(SELECT * FROM [Participates_In] WHERE [PlayerTag] = @PlayerTag_1 AND [TournamentID] = @TournamentID_3)
+	RETURN 2
 -- Create player if they don't exist
 IF NOT EXISTS(SELECT * FROM [Player] WHERE [Tag] = @PlayerTag_1)
 	INSERT INTO [Player]
