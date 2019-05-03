@@ -15,11 +15,11 @@ GO
 --
 
 CREATE PROCEDURE [insert_player_details]
-	(@PlayerTag_1 [varchar],
-	@PlayerCrew_2 [varchar] = NULL,
-	@CharName_3 [varchar],
-	@CharGame_4 [varchar],
-	@CharSkin_5 [varchar]
+	(@PlayerTag_1 [varchar](30),
+	@PlayerCrew_2 [varchar](10) = NULL,
+	@CharName_3 [varchar](40),
+	@CharGame_4 [varchar](50),
+	@CharSkin_5 [varchar](40)
 	)
 AS
 -- Validate parameters (add null checks)

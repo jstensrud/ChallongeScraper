@@ -15,8 +15,8 @@ GO
 --
 
 CREATE PROCEDURE [insert_tournament_placing]
-	(@PlayerTag_1 [varchar],
-	@PlayerCrew_2 [varchar],
+	(@PlayerTag_1 [varchar](30),
+	@PlayerCrew_2 [varchar](10),
 	@TournamentID_3 [int],
 	@Seed_4 [int],
 	@Placing_5 [int]
