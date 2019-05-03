@@ -2,6 +2,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.prefs.Preferences;
 
 import javax.swing.BoxLayout;
@@ -36,7 +37,6 @@ public class Visualizer extends JFrame{
 		JPanel content = new JPanel();
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-		//gotta find a better font than comic sans at some point
 		Font titleFont = new Font("Trebuchet MS", Font.BOLD, 40);
 		Font subtitleFont = new Font("Trebuchet MS", Font.BOLD, 30);
 		Font inputFont = new Font("Trebuchet MS", Font.BOLD, 20);
@@ -139,6 +139,31 @@ public class Visualizer extends JFrame{
 		updateKeyButton.setFont(inputFont);
 		updateKeyButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(updateKeyButton);
+		
+		JTextField tournamentName = new JTextField();
+		tournamentName.setFont(inputFont);
+		tournamentName.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tournamentName);
+		
+		JButton getResultsFromTournamentButton = new JButton("Get results from Tournament");
+		
+		ActionListener getTourneyResults = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0){
+				SprocCaller sc = new SprocCaller(con);
+				int tourneyID = sc.getTournamentIDFromName(tournamentName.getText());
+				String[][] matchResults = sc.getMatchesForTournament(tourneyID);
+		//		String[][] matchResults = sc.parseGetMatchesForTournament(tourneyResults);
+				MatchVisualizer mv = new MatchVisualizer(con, matchResults);
+				mv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				mv.setVisible(true);
+			}
+		};
+		
+		getResultsFromTournamentButton.addActionListener(getTourneyResults);
+		getResultsFromTournamentButton.setFont(inputFont);
+		getResultsFromTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(getResultsFromTournamentButton);
 		
 		JLabel credits = new JLabel("Challonge Scraper v0.2: Created by Jaxon Hoffman, Jack Stensrud, and Sarthak Suri");
 		credits.setFont(creditsFont);
