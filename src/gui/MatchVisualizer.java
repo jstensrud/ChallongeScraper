@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Dimension;
 import java.sql.Connection;
 
@@ -15,10 +16,9 @@ public class MatchVisualizer extends JFrame{
 		this.data = data;
 		JPanel content = new JPanel();
 		String[] columnNames = {"Winner", "Loser", "Score"};
-		JTable table = new JTable(data, columnNames);
+		JTable table = new JTable(this.data, columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
-//		content.add(table);
 		content.add(scrollPane);
 		add(content);
 		pack();

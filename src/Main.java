@@ -1,6 +1,9 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import functions.DatabaseConnectionService;
+import gui.MainMenuVisualizer;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,7 +28,7 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("USERNAME", "PASSWORD");
+		boolean connected = connector.connect("smashscraper", "Databases123");
 
 		Connection con = null;
 		if (!connected)
@@ -33,7 +36,7 @@ public class Main {
 		else
 			con = connector.getConnection();
 
-		Visualizer v = new Visualizer(con);
+		MainMenuVisualizer v = new MainMenuVisualizer(con);
 
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.setVisible(true);

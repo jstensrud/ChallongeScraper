@@ -1,3 +1,4 @@
+package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,20 +13,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import functions.APICaller;
+import functions.KeyUpdater;
+
 /**
  * Visualizer
  * 
  * A visual window (JFrame) that serves as the main screen for the program. Allows the user to update their API Key
  * and scrape Challonge for a Tournament ID. 
  */
-public class Visualizer extends JFrame{
+public class AddTournamentVisualizer extends JFrame{
 	private Connection con;
 	
 	/**
 	 * Default constructor
 	 * @param con 
 	 */
-	public Visualizer(Connection con){
+	public AddTournamentVisualizer(Connection con){
 		this.con = con;
 		
 		//Set up the user preferences that store the API Key
@@ -43,7 +47,7 @@ public class Visualizer extends JFrame{
 		Font creditsFont = new Font("Trebuchet MS", Font.BOLD, 10);
 		
 		
-		JLabel title = new JLabel("Challonge Scraper");
+		JLabel title = new JLabel("Add Tournament to Database");
 		title.setFont(titleFont);
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
@@ -76,7 +80,7 @@ public class Visualizer extends JFrame{
 		content.add(subDomain);
 
 		
-		JButton scrapeButton = new JButton("Scrape and save to Clipboard");
+		JButton scrapeButton = new JButton("Add Tournament to Database");
 		
 		ActionListener scrape = new ActionListener(){
 			//Scrapes the internet for a tournament's results
@@ -88,7 +92,7 @@ public class Visualizer extends JFrame{
 						//Makes sure that an API Key has been entered. If not, explain the situation with a pop-up.
 						PopUpVisualizer e = new PopUpVisualizer("Error", 
 												"You haven't entered an API key yet. Please enter an API key.");
-						e.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						e.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						e.setVisible(true);
 						return;
 					}
@@ -139,36 +143,20 @@ public class Visualizer extends JFrame{
 		updateKeyButton.setFont(inputFont);
 		updateKeyButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(updateKeyButton);
+						
+		JButton closeButton = new JButton("Close Window");
 		
-		JTextField tournamentName = new JTextField();
-		tournamentName.setFont(inputFont);
-		tournamentName.setAlignmentX(CENTER_ALIGNMENT);
-		content.add(tournamentName);
-		
-		JButton getResultsFromTournamentButton = new JButton("Get results from Tournament");
-		
-		ActionListener getTourneyResults = new ActionListener(){
+		ActionListener closeWindow = new ActionListener(){
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0){
-				SprocCaller sc = new SprocCaller(con);
-				int tourneyID = sc.getTournamentIDFromName(tournamentName.getText());
-				String[][] matchResults = sc.getMatchesForTournament(tourneyID);
-		//		String[][] matchResults = sc.parseGetMatchesForTournament(tourneyResults);
-				MatchVisualizer mv = new MatchVisualizer(con, matchResults);
-				mv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				mv.setVisible(true);
+				AddTournamentVisualizer.super.dispose();
 			}
 		};
-		
-		getResultsFromTournamentButton.addActionListener(getTourneyResults);
-		getResultsFromTournamentButton.setFont(inputFont);
-		getResultsFromTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
-		content.add(getResultsFromTournamentButton);
-		
-		JLabel credits = new JLabel("Challonge Scraper v0.2: Created by Jaxon Hoffman, Jack Stensrud, and Sarthak Suri");
-		credits.setFont(creditsFont);
-		credits.setAlignmentX(CENTER_ALIGNMENT);
-		content.add(credits);
+			closeButton.addActionListener(closeWindow);
+			closeButton.setFont(inputFont);
+			closeButton.setAlignmentX(CENTER_ALIGNMENT);
+			content.add(closeButton);
 		
 		add(content);
 		pack();

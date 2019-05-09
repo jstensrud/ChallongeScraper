@@ -1,3 +1,4 @@
+package functions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -10,6 +11,14 @@ import javax.swing.JFrame;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import gui.PopUpVisualizer;
+import tournament_data.Match;
+import tournament_data.MatchWrapper;
+import tournament_data.OutputWrapper;
+import tournament_data.Participant;
+import tournament_data.ParticipantWrapper;
+import tournament_data.Tournament;
 
 public class APICaller {
 
