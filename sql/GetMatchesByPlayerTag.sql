@@ -17,7 +17,7 @@ FROM (
 		FROM [Match] m
 		WHERE m.WinnerTag = @PlayerTag_1
 UNION ALL
-	SELECT m.MatchID, m.WinnerTag, m.LoserTag, m.Score
+	SELECT m.WinnerTag, m.LoserTag, m.Score, m.TournamentID
 		FROM [Match] m
 		WHERE m.LoserTag = @PlayerTag_1
 	) x

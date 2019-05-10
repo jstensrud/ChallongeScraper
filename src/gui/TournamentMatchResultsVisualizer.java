@@ -13,11 +13,11 @@ import javax.swing.JTextField;
 
 import functions.SprocCaller;
 
-public class TournamentResultsVisualizer extends JFrame{
+public class TournamentMatchResultsVisualizer extends JFrame{
 
 	private Connection con;
 	
-	public TournamentResultsVisualizer(Connection con){
+	public TournamentMatchResultsVisualizer(Connection con){
 		this.con = con;
 		
 		setTitle("Get Results From Tournament");

@@ -63,22 +63,71 @@ public class MainMenuVisualizer extends JFrame{
 		addTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(addTournamentButton);		
 		
-		JButton getTournamentButton = new JButton("Get Tournament Results");
+		JButton getTournamentResultsButton = new JButton("Get Player Results By Tournament");
+		ActionListener getTournamentResults = new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TournamentPlacingVizualizer getResultsWindow = new TournamentPlacingVizualizer(con);
+				getResultsWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				getResultsWindow.setVisible(true);
+			}
+		};
 		
-		ActionListener getTournament = new ActionListener(){
+		getTournamentResultsButton.addActionListener(getTournamentResults);
+		getTournamentResultsButton.setFont(inputFont);
+		getTournamentResultsButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(getTournamentResultsButton);
+		
+		JButton getTournamentMatchesButton = new JButton("Get Match Results By Tournament");
+		ActionListener getTournamentMatches = new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TournamentResultsVisualizer getTournamentWindow = new TournamentResultsVisualizer(con);
+				TournamentMatchResultsVisualizer getTournamentWindow = new TournamentMatchResultsVisualizer(con);
 				getTournamentWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				getTournamentWindow.setVisible(true);
-			}			
+			}
 		};
 		
-		getTournamentButton.addActionListener(getTournament);
-		getTournamentButton.setFont(inputFont);
-		getTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
-		content.add(getTournamentButton);	
+		getTournamentMatchesButton.addActionListener(getTournamentMatches);
+		getTournamentMatchesButton.setFont(inputFont);
+		getTournamentMatchesButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(getTournamentMatchesButton);
+
+		
+		JButton getPlayerResultsButton = new JButton("Get Tournament Results By Player");
+		ActionListener getPlayerResults = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PlayerTournamentResultsVisualizer getPlayerWindow = new PlayerTournamentResultsVisualizer(con);
+				getPlayerWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				getPlayerWindow.setVisible(true);
+			}
+		};
+		
+		getPlayerResultsButton.addActionListener(getPlayerResults);
+		getPlayerResultsButton.setFont(inputFont);
+		getPlayerResultsButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(getPlayerResultsButton);	
+
+		
+		JButton getPlayerMatchesButton = new JButton("Get Match Results By Player");
+		ActionListener getPlayerMatches = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PlayerMatchResultsVisualizer getPlayerWindow = new PlayerMatchResultsVisualizer(con);
+				getPlayerWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				getPlayerWindow.setVisible(true);
+			}
+		};
+		
+		getPlayerMatchesButton.addActionListener(getPlayerMatches);
+		getPlayerMatchesButton.setFont(inputFont);
+		getPlayerMatchesButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(getPlayerMatchesButton);	
 		
 		//put this last
 		JLabel credits = new JLabel("Terre Haute Smash Database: Created by Jaxon Hoffman, Jack Stensrud, and Sarthak Suri");
