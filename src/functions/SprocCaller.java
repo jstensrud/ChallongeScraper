@@ -165,4 +165,99 @@ public class SprocCaller {
 		}
 		return null;
 	}
+	
+	public boolean addCharacter(String name, String game, String color){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call insert_Characters(?,?,?)}");
+			cs.setString(1, name);
+			cs.setString(2, game);
+			cs.setString(3, color);
+			return cs.execute();
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean addMains(String tag, String name, String game, String color){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{ ? = call insert_Mains(?,?,?,?)}");
+			cs.setString(2, tag);
+			cs.setString(3, name);
+			cs.setString(4, game);
+			cs.setString(5, color);
+			cs.registerOutParameter(1, Types.INTEGER);
+			boolean b = cs.execute();
+			System.out.println(cs.getInt(1));
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	public String[] getPlayers(){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getAllPlayers()}");
+			return parseSingleStringValues(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String[] getGames(){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getAllGames()}");
+			return parseSingleStringValues(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+		
+	public String[] getChars(String game){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getAllCharactersForGame(?)}");
+			cs.setString(1, game);
+			return parseSingleStringValues(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;		
+	}
+
+	public String[] getSkins(String game, String name){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getAllSkinsForCharacter(?,?)}");
+			cs.setString(1, game);
+			cs.setString(2, name);
+			return parseSingleStringValues(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;		
+	}
+	
+	public String[] parseSingleStringValues(ResultSet rs){
+		List<String> resultsList = new ArrayList<String>();
+		try{
+			while(rs.next()){
+				resultsList.add(rs.getString(1));
+			}
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		String[] results = new String[resultsList.size()];
+		for(int i = 0; i < results.length; i++){
+			results[i] = resultsList.get(i);
+		}
+		return results;
+	}
+
 }

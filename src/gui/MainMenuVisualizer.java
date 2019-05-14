@@ -129,6 +129,24 @@ public class MainMenuVisualizer extends JFrame{
 		getPlayerMatchesButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(getPlayerMatchesButton);	
 		
+		JButton playerInfoButton = new JButton("Get/Update Player Info");
+		
+		ActionListener playerInfo = new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				PlayerVisualizer playerWindow = new PlayerVisualizer(con);
+				playerWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				playerWindow.setVisible(true);
+			}			
+		};
+		
+		playerInfoButton.addActionListener(playerInfo);
+		playerInfoButton.setFont(inputFont);
+		playerInfoButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(playerInfoButton);	
+		
+		
 		//put this last
 		JLabel credits = new JLabel("Terre Haute Smash Database: Created by Jaxon Hoffman, Jack Stensrud, and Sarthak Suri");
 		credits.setFont(creditsFont);

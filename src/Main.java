@@ -1,9 +1,15 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import character_data.CharacterAdder;
 import functions.DatabaseConnectionService;
+import functions.SprocCaller;
 import gui.MainMenuVisualizer;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,7 +34,7 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("smashscraper", "Databases123");
+		boolean connected = connector.connect("user", "pass");
 
 		Connection con = null;
 		if (!connected)
@@ -36,8 +42,16 @@ public class Main {
 		else
 			con = connector.getConnection();
 
+		/*
+		 * Unused code to initialize the database with all characters and alternate costumes
+		 * 
+		CharacterAdder ca = new CharacterAdder(con);
+		ca.addMelee();
+		ca.addUltimate();
+		SprocCaller sc = new SprocCaller(con);
+		sc.getGames();
+		*/
 		MainMenuVisualizer v = new MainMenuVisualizer(con);
-
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.setVisible(true);
 	}
