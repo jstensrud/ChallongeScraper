@@ -80,4 +80,18 @@ public class SprocCaller {
 		}
 		return null;
 	}
+	
+	public boolean addCharacter(String name, String game, String color){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call insert_Characters(?,?,?)}");
+			cs.setString(1, name);
+			cs.setString(2, game);
+			cs.setString(3, color);
+			return cs.execute();
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
 }
