@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import character_data.CharacterAdder;
 import functions.DatabaseConnectionService;
+import functions.SprocCaller;
 import gui.MainMenuVisualizer;
 
 import java.io.IOException;
@@ -33,7 +34,7 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("username", "password");
+		boolean connected = connector.connect("smashscraper", "Databases123");
 
 		Connection con = null;
 		if (!connected)
@@ -47,8 +48,9 @@ public class Main {
 		CharacterAdder ca = new CharacterAdder(con);
 		ca.addMelee();
 		ca.addUltimate();
+		SprocCaller sc = new SprocCaller(con);
+		sc.getGames();
 		*/
-
 		MainMenuVisualizer v = new MainMenuVisualizer(con);
 		v.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		v.setVisible(true);

@@ -44,7 +44,6 @@ public class AddTournamentVisualizer extends JFrame{
 		Font titleFont = new Font("Trebuchet MS", Font.BOLD, 40);
 		Font subtitleFont = new Font("Trebuchet MS", Font.BOLD, 30);
 		Font inputFont = new Font("Trebuchet MS", Font.BOLD, 20);
-		Font creditsFont = new Font("Trebuchet MS", Font.BOLD, 10);
 		
 		
 		JLabel title = new JLabel("Add Tournament to Database");
