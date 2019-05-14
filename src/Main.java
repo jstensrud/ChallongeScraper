@@ -34,7 +34,7 @@ import java.sql.SQLException;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("smashscraper", "Databases123");
+		boolean connected = connector.connect("user", "pass");
 
 		Connection con = null;
 		if (!connected)
