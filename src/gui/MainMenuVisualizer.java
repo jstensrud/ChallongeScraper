@@ -47,7 +47,7 @@ public class MainMenuVisualizer extends JFrame{
 		instructionsButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(instructionsButton);
 		*/
-		JButton addTournamentButton = new JButton("Add Tournament to Database");
+		JButton addTournamentButton = new JButton("Add Tournament to Database from JSON file");
 		ActionListener addTournament = new ActionListener(){
 
 			@Override
@@ -62,6 +62,22 @@ public class MainMenuVisualizer extends JFrame{
 		addTournamentButton.setFont(inputFont);
 		addTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(addTournamentButton);		
+		
+		JButton addRankingButton = new JButton("Add Power Rankings");
+		ActionListener addRanking = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				AddRankingVisualizer addRankingWindow = new AddRankingVisualizer(con);
+				addRankingWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				addRankingWindow.setVisible(true);
+			}
+		};
+		
+		addRankingButton.addActionListener(addRanking);
+		addRankingButton.setFont(inputFont);
+		addRankingButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(addRankingButton);
+		
 		
 		JButton getTournamentResultsButton = new JButton("Get Player Results By Tournament");
 		ActionListener getTournamentResults = new ActionListener(){

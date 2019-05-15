@@ -228,6 +228,42 @@ public class SprocCaller {
 		return false;
 	}
 	
+	public boolean addRank(String period, String game, String group){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{ ? = call create_ranking(?,?,?)}");
+			cs.setString(2, period);
+			cs.setString(3, game);
+			cs.setString(4, group);
+			cs.registerOutParameter(1, Types.INTEGER);
+			boolean b = cs.execute();
+			System.out.println(cs.getInt(1));
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return false;
+
+	}
+	
+	public boolean addRanking(String tag, String period, String game, String group, String rank){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{ ? = call insert_RankedIn(?,?,?,?,?)}");
+			cs.setString(2, tag);
+			cs.setString(3, period);
+			cs.setString(4, game);
+			cs.setString(5, group);
+			cs.setString(6, rank);
+			cs.registerOutParameter(1, Types.INTEGER);
+			boolean b = cs.execute();
+			System.out.println(cs.getInt(1));
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return false;
+		
+	}
+	
 	public String[] getPlayers(){
 		CallableStatement cs = null;
 		try{
