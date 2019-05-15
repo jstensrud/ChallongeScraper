@@ -10,16 +10,13 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import functions.SprocCaller;
 
+@SuppressWarnings("serial")
 public class TournamentMatchResultsVisualizer extends JFrame{
-
-	private Connection con;
 	
 	public TournamentMatchResultsVisualizer(Connection con){
-		this.con = con;
 		
 		setTitle("Get Results From Tournament");
 		JPanel content = new JPanel();
@@ -37,7 +34,7 @@ public class TournamentMatchResultsVisualizer extends JFrame{
 		
 		
 		String[] tournaments = sproccaller.getTournaments();
-		JComboBox tournamentList = new JComboBox(tournaments);
+		JComboBox<String> tournamentList = new JComboBox<String>(tournaments);
 		tournamentList.setFont(inputFont);
 		tournamentList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(tournamentList);
@@ -50,7 +47,7 @@ public class TournamentMatchResultsVisualizer extends JFrame{
 				SprocCaller sc = new SprocCaller(con);
 				int tourneyID = sc.getTournamentIDFromName((String) tournamentList.getItemAt(tournamentList.getSelectedIndex()));
 				String[][] matchResults = sc.getMatchesForTournament(tourneyID);
-				MatchVisualizer mv = new MatchVisualizer(con, matchResults);
+				MatchVisualizer mv = new MatchVisualizer(matchResults);
 				mv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				mv.setVisible(true);
 			}

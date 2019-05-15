@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +16,10 @@ import javax.swing.JPanel;
 
 import functions.SprocCaller;
 
+@SuppressWarnings("serial")
 public class PlayerVisualizer extends JFrame{
-	private Connection con;
-	
 	
 	public PlayerVisualizer(Connection con){
-		this.con = con;
 		SprocCaller sprocCaller = new SprocCaller(con);
 		
 		setTitle("Update Player Information");
@@ -44,17 +41,17 @@ public class PlayerVisualizer extends JFrame{
 		tagDescription.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(tagDescription);
 		
-		JComboBox tagList = new JComboBox(sprocCaller.getPlayers());
+		JComboBox<String> tagList = new JComboBox<String>(sprocCaller.getPlayers());
 		tagList.setFont(inputFont);
 		tagList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(tagList);
 
-		JComboBox gameList = new JComboBox(sprocCaller.getGames());
+		JComboBox<String> gameList = new JComboBox<String>(sprocCaller.getGames());
 		gameList.setFont(inputFont);
 		gameList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(gameList);
 
-		JComboBox charList = new JComboBox(sprocCaller.getChars((String) gameList.getItemAt(gameList.getSelectedIndex())));
+		JComboBox<String> charList = new JComboBox<String>(sprocCaller.getChars((String) gameList.getItemAt(gameList.getSelectedIndex())));
 		charList.setFont(inputFont);
 		charList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(charList);
@@ -63,7 +60,7 @@ public class PlayerVisualizer extends JFrame{
 		String character =  (String) charList.getItemAt(charList.getSelectedIndex());
 
 		String[] newChars = sprocCaller.getSkins(game,character);
-		JComboBox skinList = new JComboBox(newChars);
+		JComboBox<String> skinList = new JComboBox<String>(newChars);
 		skinList.setFont(inputFont);
 		skinList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(skinList);
@@ -71,7 +68,6 @@ public class PlayerVisualizer extends JFrame{
 		gameList.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				JComboBox box = (JComboBox) e.getSource();
 				charList.removeAllItems();
 				String[] newChars = sprocCaller.getChars((String) gameList.getItemAt(gameList.getSelectedIndex()));
 				for(int i = 0; i < newChars.length; i++){
@@ -83,7 +79,6 @@ public class PlayerVisualizer extends JFrame{
 		charList.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				JComboBox box = (JComboBox) e.getSource();
 				skinList.removeAllItems();
 				String game = (String) gameList.getItemAt(gameList.getSelectedIndex());
 				String character =  (String) charList.getItemAt(charList.getSelectedIndex());

@@ -8,8 +8,6 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 public class SprocCaller {
 	private Connection con;
 
@@ -62,6 +60,25 @@ public class SprocCaller {
 		try {
 			cs = con.prepareCall("{ ? = call getMatchesForPlayer(?)}");
 			cs.setString(2, playerTag);
+			cs.registerOutParameter(1, Types.INTEGER);
+			ResultSet rs = cs.executeQuery();
+			/*
+			 * int returnValue = cs.getInt(1); if(returnValue == 1){
+			 * JOptionPane.showMessageDialog(null,
+			 * "Tournament ID does not exist in the database."); }
+			 */ return parseMatches(rs);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	public String[][] getMatchesForPlayers(String playerTag, String opponentTag) {
+		CallableStatement cs = null;
+		try {
+			cs = con.prepareCall("{ ? = call getMatchesForPlayers(?, ?)}");
+			cs.setString(2, playerTag);
+			cs.setString(3, opponentTag);
 			cs.registerOutParameter(1, Types.INTEGER);
 			ResultSet rs = cs.executeQuery();
 			/*
@@ -220,8 +237,10 @@ public class SprocCaller {
 			cs.setString(4, game);
 			cs.setString(5, color);
 			cs.registerOutParameter(1, Types.INTEGER);
-			boolean b = cs.execute();
-			System.out.println(cs.getInt(1));
+			boolean rs = cs.execute();
+			if (rs == false) {
+				// TODO: Handle error
+			}
 		}catch(SQLException ex){
 			ex.printStackTrace();
 		}
@@ -236,8 +255,10 @@ public class SprocCaller {
 			cs.setString(3, game);
 			cs.setString(4, group);
 			cs.registerOutParameter(1, Types.INTEGER);
-			boolean b = cs.execute();
-			System.out.println(cs.getInt(1));
+			boolean rs = cs.execute();
+			if (rs == false) {
+				// TODO: Handle error
+			}
 		}catch(SQLException ex){
 			ex.printStackTrace();
 		}
@@ -255,8 +276,10 @@ public class SprocCaller {
 			cs.setString(5, group);
 			cs.setString(6, rank);
 			cs.registerOutParameter(1, Types.INTEGER);
-			boolean b = cs.execute();
-			System.out.println(cs.getInt(1));
+			boolean rs = cs.execute();
+			if (rs == false) {
+				// TODO: Handle error
+			}
 		}catch(SQLException ex){
 			ex.printStackTrace();
 		}

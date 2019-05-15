@@ -18,19 +18,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import character_data.CharacterWrapper;
 import functions.SprocCaller;
 import ranking_data.Ranking;
 import ranking_data.RankingWrapper;
 
+@SuppressWarnings("serial")
 public class AddRankingVisualizer extends JFrame{
-
-	private Connection con;
-	private SprocCaller sproccaller;
 	
 	public AddRankingVisualizer(Connection con){
-		this.con = con;
-		this.sproccaller = new SprocCaller(this.con);
+		SprocCaller sproccaller = new SprocCaller(con);
 		
 		
 		setTitle("Add Ranking");
@@ -39,7 +35,7 @@ public class AddRankingVisualizer extends JFrame{
 
 		Font inputFont = new Font("Trebuchet MS", Font.BOLD, 20);
 
-		JComboBox gameList = new JComboBox(sproccaller.getGames());
+		JComboBox<String> gameList = new JComboBox<String>(sproccaller.getGames());
 		gameList.setFont(inputFont);
 		gameList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(gameList);
@@ -83,6 +79,9 @@ public class AddRankingVisualizer extends JFrame{
 						for(int i = 0; i < ranks.length; i++){
 							Ranking r = ranks[i].getRanking();
 							result = sproccaller.addRanking(r.tag, period, game, orgName, r.rank);
+							if (result == false) {
+								// TODO: handle error
+							}
 						}
 					} catch (IOException e) {
 						e.printStackTrace();

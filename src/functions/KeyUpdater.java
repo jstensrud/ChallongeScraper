@@ -20,6 +20,7 @@ import gui.PopUpVisualizer;
  * 
  * Preferences prefs: Holds the user's API Key.
  */
+@SuppressWarnings("serial")
 public class KeyUpdater extends JFrame{
 	
 	private Preferences prefs;

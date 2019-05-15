@@ -15,6 +15,7 @@ import javax.swing.JPanel;
  * A visual window (JFrame) that displays a pop-up message. No interaction from the user is required other than closing the window.
  * 
  */
+@SuppressWarnings("serial")
 public class PopUpVisualizer extends JFrame{
 	
 	/**

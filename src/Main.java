@@ -1,18 +1,10 @@
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-
-import character_data.CharacterAdder;
 import functions.DatabaseConnectionService;
-import functions.SprocCaller;
 import gui.MainMenuVisualizer;
 
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  * 

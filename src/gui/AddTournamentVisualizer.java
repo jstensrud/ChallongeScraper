@@ -3,7 +3,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.util.prefs.Preferences;
 
 import javax.swing.BoxLayout;
@@ -22,16 +21,10 @@ import functions.KeyUpdater;
  * A visual window (JFrame) that serves as the main screen for the program. Allows the user to update their API Key
  * and scrape Challonge for a Tournament ID. 
  */
+@SuppressWarnings("serial")
 public class AddTournamentVisualizer extends JFrame{
-	private Connection con;
-	
-	/**
-	 * Default constructor
-	 * @param con 
-	 */
+
 	public AddTournamentVisualizer(Connection con){
-		this.con = con;
-		
 		//Set up the user preferences that store the API Key
 		Preferences prefs = Preferences.userRoot().node(this.getClass().getName());
 		

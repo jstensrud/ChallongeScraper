@@ -1,18 +1,15 @@
 package gui;
 
-import java.sql.Connection;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+@SuppressWarnings("serial")
 public class TournamentPlayerResultsVisualizer extends JFrame{
-	private Connection con;
 	private String[][] data;
 	
-	public TournamentPlayerResultsVisualizer(Connection con, String[][] data){
-		this.con = con;
+	public TournamentPlayerResultsVisualizer(String[][] data){
 		this.data = data;
 		JPanel content = new JPanel();
 		String[] columnNames = {"Tournament Name", "Seed", "Placing", "Tag"};

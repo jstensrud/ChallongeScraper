@@ -1,18 +1,15 @@
 package gui;
-import java.awt.Dimension;
-import java.sql.Connection;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+@SuppressWarnings("serial")
 public class MatchVisualizer extends JFrame{
-	private Connection con;
 	private String[][] data;
 	
-	public MatchVisualizer(Connection con, String[][] data){
-		this.con = con;
+	public MatchVisualizer(String[][] data){
 		this.data = data;
 		JPanel content = new JPanel();
 		String[] columnNames = {"Winner", "Loser", "Score"};

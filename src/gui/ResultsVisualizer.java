@@ -26,6 +26,7 @@ import tournament_data.Participant;
  * 
  * 
  */
+@SuppressWarnings("serial")
 public class ResultsVisualizer extends JFrame{
 	private Connection con;
 	
@@ -149,6 +150,9 @@ public class ResultsVisualizer extends JFrame{
 			cs.setString(6, name);
 			cs.registerOutParameter(1, Types.INTEGER);
 			boolean rs = cs.execute();
+			if (rs == false) {
+				// TODO: Handle error
+			}
 			int returnValue = cs.getInt(1);
 			if(returnValue == 1){
 				JOptionPane.showMessageDialog(null, "Tournament has already been added into the database.");
@@ -171,6 +175,9 @@ public class ResultsVisualizer extends JFrame{
 			cs.setInt(6, placing);
 			cs.registerOutParameter(1, Types.INTEGER);
 			boolean rs = cs.execute();
+			if (rs == false) {
+				// TODO: Handle error
+			}
 			int returnValue = cs.getInt(1);
 			if(returnValue == 1){
 				JOptionPane.showMessageDialog(null, "Tournament ID does not exist in the database.");
@@ -191,6 +198,9 @@ public class ResultsVisualizer extends JFrame{
 			cs.setString(6, score);
 			cs.registerOutParameter(1, Types.INTEGER);
 			boolean rs = cs.execute();
+			if (rs == false) {
+				// TODO: Handle error
+			}
 			int returnValue = cs.getInt(1);
 			if(returnValue == 1){
 				JOptionPane.showMessageDialog(null, "Match has already been added into the database.");
