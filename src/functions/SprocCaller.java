@@ -39,6 +39,7 @@ public class SprocCaller {
 	}
 
 	public String[][] getMatchesForTournament(int tournamentID) {
+		System.out.println(tournamentID);
 		CallableStatement cs = null;
 		try {
 			cs = con.prepareCall("{ ? = call getMatchesForTourney(?)}");
@@ -85,7 +86,7 @@ public class SprocCaller {
 			 * int returnValue = cs.getInt(1); if(returnValue == 1){
 			 * JOptionPane.showMessageDialog(null,
 			 * "Tournament ID does not exist in the database."); }
-			 */ return parseMatches(rs);
+			 */ return parseTournamentResults(rs);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -103,7 +104,7 @@ public class SprocCaller {
 			 * int returnValue = cs.getInt(1); if(returnValue == 1){
 			 * JOptionPane.showMessageDialog(null,
 			 * "Tournament ID does not exist in the database."); }
-			 */ return parseMatchesForTournament(rs);
+			 */ return parseTournamentResults(rs);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -132,6 +133,36 @@ public class SprocCaller {
 				results[i][1] = loserTags.get(i);
 				results[i][2] = scores.get(i);
 				results[i][3] = tournamentNames.get(i);
+			}
+			return results;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String[][] parseTournamentResults(ResultSet rs) {
+		List<String> tournamentNames = new ArrayList<String>();
+		List<String> tags = new ArrayList<String>();
+		List<Integer> seeds = new ArrayList<Integer>();
+		List<Integer> placings = new ArrayList<Integer>();
+		try {
+			while (rs.next()) {
+				int tourneyIndex = rs.findColumn("Name");
+				int tagIndex = rs.findColumn("PlayerTag");
+				int seedIndex = rs.findColumn("Seed");
+				int placingIndex = rs.findColumn("Placing");
+				tournamentNames.add(rs.getString(tourneyIndex));
+				tags.add(rs.getString(tagIndex));
+				seeds.add(rs.getInt(seedIndex));
+				placings.add(rs.getInt(placingIndex));
+			}
+			String[][] results = new String[tags.size()][4];
+			for (int i = 0; i < tournamentNames.size(); i++) {
+				results[i][0] = tournamentNames.get(i);
+				results[i][1] = seeds.get(i).toString();
+				results[i][2] = placings.get(i).toString();
+				results[i][3] = tags.get(i);
 			}
 			return results;
 		} catch (SQLException e) {
@@ -242,6 +273,17 @@ public class SprocCaller {
 			ex.printStackTrace();
 		}
 		return null;		
+	}
+	
+	public String[] getTournaments(){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getAllTournaments()}");
+			return parseSingleStringValues(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
 	}
 	
 	public String[] parseSingleStringValues(ResultSet rs){

@@ -29,7 +29,7 @@ public class MainMenuVisualizer extends JFrame{
 		title.setFont(titleFont);
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
-		
+		/*
 		JButton instructionsButton = new JButton("Instructions");
 		ActionListener instructions = new ActionListener(){
 
@@ -46,7 +46,7 @@ public class MainMenuVisualizer extends JFrame{
 		instructionsButton.setFont(inputFont);
 		instructionsButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(instructionsButton);
-		
+		*/
 		JButton addTournamentButton = new JButton("Add Tournament to Database");
 		ActionListener addTournament = new ActionListener(){
 
@@ -68,7 +68,7 @@ public class MainMenuVisualizer extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TournamentPlacingVizualizer getResultsWindow = new TournamentPlacingVizualizer(con);
+				TournamentPlacingVizualiser getResultsWindow = new TournamentPlacingVizualiser(con);
 				getResultsWindow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				getResultsWindow.setVisible(true);
 			}

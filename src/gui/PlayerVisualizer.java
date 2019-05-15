@@ -61,6 +61,7 @@ public class PlayerVisualizer extends JFrame{
 		
 		String game = (String) gameList.getItemAt(gameList.getSelectedIndex());
 		String character =  (String) charList.getItemAt(charList.getSelectedIndex());
+
 		String[] newChars = sprocCaller.getSkins(game,character);
 		JComboBox skinList = new JComboBox(newChars);
 		skinList.setFont(inputFont);

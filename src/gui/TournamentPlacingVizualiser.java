@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,53 +15,51 @@ import javax.swing.JTextField;
 
 import functions.SprocCaller;
 
-public class TournamentMatchResultsVisualizer extends JFrame{
+public class TournamentPlacingVizualiser extends JFrame {
 
 	private Connection con;
-	
-	public TournamentMatchResultsVisualizer(Connection con){
+
+	public TournamentPlacingVizualiser(Connection con) {
 		this.con = con;
-		
-		setTitle("Get Results From Tournament");
+		SprocCaller sproccaller = new SprocCaller(con);
+
+		setTitle("Get Results For Tournament");
 		JPanel content = new JPanel();
 		content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
-		
+
 		Font titleFont = new Font("Trebuchet MS", Font.BOLD, 40);
 		Font inputFont = new Font("Trebuchet MS", Font.BOLD, 20);
-		
+
 		JLabel title = new JLabel("Get Results For Tournament");
 		title.setFont(titleFont);
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
 
-		SprocCaller sproccaller = new SprocCaller(con);
-		
-		
 		String[] tournaments = sproccaller.getTournaments();
 		JComboBox tournamentList = new JComboBox(tournaments);
 		tournamentList.setFont(inputFont);
 		tournamentList.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(tournamentList);
-		
-		JButton getResultsFromTournamentButton = new JButton("Get results from Tournament");
-	
-		ActionListener getTourneyResults = new ActionListener(){
+
+		JButton getResultsForTournamentButton = new JButton("Get results for Tournament");
+
+		ActionListener getTourneyResults = new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent arg0){
+			public void actionPerformed(ActionEvent arg0) {
 				SprocCaller sc = new SprocCaller(con);
 				int tourneyID = sc.getTournamentIDFromName((String) tournamentList.getItemAt(tournamentList.getSelectedIndex()));
-				String[][] matchResults = sc.getMatchesForTournament(tourneyID);
-				MatchVisualizer mv = new MatchVisualizer(con, matchResults);
+				String[][] rankingResults = sc.getRankingsForTournament(tourneyID);
+				TournamentPlayerResultsVisualizer mv = new TournamentPlayerResultsVisualizer(con, rankingResults);
 				mv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				mv.setVisible(true);
 			}
 		};
-	
-		getResultsFromTournamentButton.addActionListener(getTourneyResults);
-		getResultsFromTournamentButton.setFont(inputFont);
-		getResultsFromTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
-		content.add(getResultsFromTournamentButton);
-		
+
+		getResultsForTournamentButton.addActionListener(getTourneyResults);
+		getResultsForTournamentButton.setFont(inputFont);
+		getResultsForTournamentButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(getResultsForTournamentButton);
+
 		add(content);
 		pack();
 	}

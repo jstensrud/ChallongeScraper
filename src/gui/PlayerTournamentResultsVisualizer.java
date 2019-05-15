@@ -7,6 +7,7 @@ import java.sql.Connection;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ public class PlayerTournamentResultsVisualizer extends JFrame {
 
 	public PlayerTournamentResultsVisualizer(Connection con) {
 		this.con = con;
+		SprocCaller sprocCaller = new SprocCaller(con);
 
 		setTitle("Get Results For Player");
 		JPanel content = new JPanel();
@@ -33,10 +35,11 @@ public class PlayerTournamentResultsVisualizer extends JFrame {
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(title);
 
-		JTextField playerTag = new JTextField();
-		playerTag.setFont(inputFont);
-		playerTag.setAlignmentX(CENTER_ALIGNMENT);
-		content.add(playerTag);
+		JComboBox tagList = new JComboBox(sprocCaller.getPlayers());
+		tagList.setFont(inputFont);
+		tagList.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(tagList);
+
 
 		JButton getResultsForPlayerButton = new JButton("Get results for Player");
 
@@ -44,8 +47,8 @@ public class PlayerTournamentResultsVisualizer extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				SprocCaller sc = new SprocCaller(con);
-				String[][] rankingResults = sc.getRankingsForPlayer(playerTag.getText());
-				PlacingVizualizer mv = new PlacingVizualizer(con, rankingResults);
+				String[][] rankingResults = sc.getRankingsForPlayer((String) tagList.getItemAt(tagList.getSelectedIndex()));
+				PlacingVizualizer mv = new PlacingVizualizer(con, rankingResults, (String) tagList.getItemAt(tagList.getSelectedIndex()));
 				mv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 				mv.setVisible(true);
 			}
