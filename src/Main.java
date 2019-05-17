@@ -26,7 +26,7 @@ import java.sql.Connection;
 public class Main {
 	public static void main(String[] args) {
 		DatabaseConnectionService connector = new DatabaseConnectionService("golem.csse.rose-hulman.edu", "_SmashDB");
-		boolean connected = connector.connect("user", "pass");
+		boolean connected = connector.connect("smashscraper", "Databases123");
 
 		Connection con = null;
 		if (!connected)

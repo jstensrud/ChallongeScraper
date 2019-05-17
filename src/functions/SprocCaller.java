@@ -345,6 +345,82 @@ public class SprocCaller {
 		return null;
 	}
 	
+	public String[][] getRankings(){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getAllRankings()}");
+			return parseRankingsList(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public String[][] parseRankingsList(ResultSet rs){
+		List<String> orgs = new ArrayList<String>();
+		List<String> games = new ArrayList<String>();
+		List<String> periods = new ArrayList<String>();
+		try{
+			int orgIndex = rs.findColumn("Group");
+			int gameIndex = rs.findColumn("Game");
+			int periodIndex = rs.findColumn("Period");
+			while(rs.next()){
+				orgs.add(rs.getString(orgIndex));
+				games.add(rs.getString(gameIndex));
+				periods.add(rs.getString(periodIndex));
+			}
+			String[][] results = new String[orgs.size()][3];
+			for(int i = 0; i < orgs.size(); i++){
+				results[i][0] = orgs.get(i);
+				results[i][1] = games.get(i);
+				results[i][2] = periods.get(i);
+			}
+			return results;
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String[][] getRankings(String org, String game, String period){
+		CallableStatement cs = null;
+		try{
+			cs = con.prepareCall("{call getListForRanking(?,?,?)}");
+			cs.setString(1, game);
+			cs.setString(2, period);
+			cs.setString(3, org);
+			return parseRanks(cs.executeQuery());
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+		
+	}
+	
+	public String[][] parseRanks(ResultSet rs){
+		List<String> tags = new ArrayList<String>();
+		List<String> ranks = new ArrayList<String>();
+		try{
+			int tagIndex = rs.findColumn("PlayerTag");
+			int rankIndex = rs.findColumn("Rank");
+			while(rs.next()){
+				tags.add(rs.getString(tagIndex));
+				ranks.add(rs.getString(rankIndex));
+			}
+			String[][] results = new String[tags.size()][2];
+			for(int i = 0; i < tags.size(); i++){
+				results[i][0] = tags.get(i);
+				results[i][1] = ranks.get(i);
+			}
+			return results;
+		}catch(SQLException ex){
+			ex.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 	public String[] parseSingleStringValues(ResultSet rs){
 		List<String> resultsList = new ArrayList<String>();
 		try{

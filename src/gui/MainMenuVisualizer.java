@@ -178,7 +178,20 @@ public class MainMenuVisualizer extends JFrame {
 		playerInfoButton.setAlignmentX(CENTER_ALIGNMENT);
 		content.add(playerInfoButton);
 
-
+		JButton viewRanksButton = new JButton("View Power Rankings");
+		ActionListener getPR = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				RankSelectionVisualizer rsv = new RankSelectionVisualizer(con);
+				rsv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				rsv.setVisible(true);
+			}
+		};
+		viewRanksButton.addActionListener(getPR);
+		viewRanksButton.setFont(inputFont);
+		viewRanksButton.setAlignmentX(CENTER_ALIGNMENT);
+		content.add(viewRanksButton);
+		
 		// put this last
 		JLabel credits = new JLabel(
 				"Terre Haute Smash Database: Created by Jaxon Hoffman, Jack Stensrud, and Sarthak Suri");
