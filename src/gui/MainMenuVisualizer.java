@@ -44,7 +44,7 @@ public class MainMenuVisualizer extends JFrame {
 		 * instructionsButton.setAlignmentX(CENTER_ALIGNMENT);
 		 * content.add(instructionsButton);
 		 */
-		JButton addTournamentButton = new JButton("Add Tournament to Database from JSON file");
+		JButton addTournamentButton = new JButton("Add Tournament to Database");
 		ActionListener addTournament = new ActionListener() {
 
 			@Override
@@ -61,7 +61,7 @@ public class MainMenuVisualizer extends JFrame {
 		content.add(addTournamentButton);
 
 
-		JButton addRankingButton = new JButton("Add Power Rankings");
+		JButton addRankingButton = new JButton("Add Power Rankings from JSON file");
 		ActionListener addRanking = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
